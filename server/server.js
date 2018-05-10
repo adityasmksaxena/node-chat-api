@@ -17,6 +17,10 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Client Disconnected');
   });
+  socket.on('createMsg', (msg) => {
+    console.log('New Msg Created', msg);
+  });
+  socket.emit('newMsg', {from: 'Aditya', to: 'All', createdAt: new Date()});
 });
 
 server.listen(PORT, () => {
