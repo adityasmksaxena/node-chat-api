@@ -3,5 +3,5 @@ const generateMessage = (from, text) => {
 };
 
 module.exports = {
-  generateMessage
+  generateMessage,
 };

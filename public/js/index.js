@@ -4,7 +4,19 @@ socket.on('connect', () => {
 });
 socket.on('newMessage', (message) => {
   console.log('New Message Received', message);
+  const { from, text } = message;
+  const li = jQuery('<li></li>');
+  li.text(`${from}: ${text}`);
+  jQuery('#messages').append(li);
 });
 socket.on('disconnect', () => {
   console.log('Disconnected from Server');
+});
+
+jQuery('#message-form').on('submit', (e) => {
+  e.preventDefault();
+  socket.emit('createMessage', {
+    from: 'User',
+    text: jQuery('[name=message]').val(),
+  }, () => {});
 });
