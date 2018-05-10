@@ -3,23 +3,23 @@
   "version": "1.0.0",
   "description": "Chat App",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js"
-  },
+  "author": "Aditya Saxena",
+  "license": "MIT",
+  "homepage": "https://github.com/adityasmksaxena/node-chat-api#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adityasmksaxena/node-chat-api.git"
   },
-  "author": "Aditya Saxena",
-  "license": "MIT",
-  "engines": {
-    "node": "10.0.0"
-  },
   "bugs": {
     "url": "https://github.com/adityasmksaxena/node-chat-api/issues"
   },
-  "homepage": "https://github.com/adityasmksaxena/node-chat-api#readme",
+  "engines": {
+    "node": "10.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/server.js"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "socket.io": "^2.1.0"

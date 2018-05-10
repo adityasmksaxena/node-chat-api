@@ -14,13 +14,24 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
   console.log('New Connection Found');
+  socket.emit('newMessage', {
+    from: 'Admin',
+    text: 'Welcome to the site...!',
+    createdAt: new Date().getTime(),
+  });
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'Some new user joined...!',
+    createdAt: new Date().getTime(),
+  });
   socket.on('disconnect', () => {
     console.log('Client Disconnected');
   });
-  socket.on('createMsg', (msg) => {
-    console.log('New Msg Created', msg);
+  socket.on('createMessage', (message) => {
+    console.log('New Message Created', message);
+    const { from, text } = message;
+    io.emit('newMessage', { from, text, createdAt: new Date().getTime() });
   });
-  socket.emit('newMsg', {from: 'Aditya', to: 'All', createdAt: new Date()});
 });
 
 server.listen(PORT, () => {
