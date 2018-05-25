@@ -7,21 +7,18 @@ socket.on('connect', () => {
 socket.on('newMessage', (message) => {
   const { from, text, createdAt } = message;
   const formatedTime = moment(createdAt).format('h:mm a');
-  const li = jQuery('<li></li>');
-  li.text(`${from} ${formatedTime}: ${text}`);
-  jQuery('#messages').append(li);
+  const template = jQuery('#message-template').html();
+  const html = Mustache.render(template, { from, text, createdAt: formatedTime });
+  jQuery('#messages').append(html);
 });
 
 socket.on('newLocationMessage', (message) => {
   console.log('New Location Message Received', message);
   const { from, url, createdAt } = message;
   const formatedTime = moment(createdAt).format('h:mm a');
-  let li = jQuery('<li></li>');
-  let a = jQuery('<a target="_blank">My current location</a>');
-  a.attr('href', url);
-  li.text(`${from} ${formatedTime}: `);
-  li.append(a);
-  jQuery('#messages').append(li);
+  const template = jQuery('#location-message-template').html();
+  const html = Mustache.render(template, { from, url, createdAt: formatedTime });
+  jQuery('#messages').append(html);
 });
 
 socket.on('disconnect', () => {
