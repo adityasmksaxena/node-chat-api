@@ -21,10 +21,11 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Client Disconnected');
   });
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('New Message Created', message);
     const { from, text } = message;
     io.emit('newMessage', generateMessage(from, text));
+    callback();
   });
   socket.on('createLocationMessage', (coord) => {
     io.emit('newLocationMessage', generateLocationMessage('Admin', coord));
