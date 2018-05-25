@@ -1,30 +1,34 @@
 const socket = io();
+
 socket.on('connect', () => {
   console.log('Connected to Server');
 });
+
 socket.on('newMessage', (message) => {
-  console.log('New Message Received', message);
-  const { from, text } = message;
+  const { from, text, createdAt } = message;
+  const formatedTime = moment(createdAt).format('h:mm a');
   const li = jQuery('<li></li>');
-  li.text(`${from}: ${text}`);
+  li.text(`${from} ${formatedTime}: ${text}`);
   jQuery('#messages').append(li);
 });
+
 socket.on('newLocationMessage', (message) => {
   console.log('New Location Message Received', message);
-  let { from, url } = message;
+  const { from, url, createdAt } = message;
+  const formatedTime = moment(createdAt).format('h:mm a');
   let li = jQuery('<li></li>');
   let a = jQuery('<a target="_blank">My current location</a>');
   a.attr('href', url);
-  li.text(`${from}: `);
+  li.text(`${from} ${formatedTime}: `);
   li.append(a);
   jQuery('#messages').append(li);
 });
+
 socket.on('disconnect', () => {
   console.log('Disconnected from Server');
 });
 
 let messageTextBox = jQuery('[name=message]');
-
 jQuery('#message-form').on('submit', (e) => {
   e.preventDefault();
   socket.emit('createMessage', {
