@@ -23,6 +23,9 @@
         "vars": "local",
         "args": "none"
       }
-    ]
+    ],
+    "no-trailing-spaces": [1, {
+      "skipBlankLines": true
+    }]
   }
 }
