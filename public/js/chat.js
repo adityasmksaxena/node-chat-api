@@ -51,11 +51,18 @@ socket.on('disconnect', () => {
   console.log('Disconnected from Server');
 });
 
+socket.on('updateUserList', (users) => {
+  const ol = jQuery('<ol></ol>');
+  users.forEach((user) => {
+    ol.append(jQuery('<li></li>').text(user));
+    jQuery('#users').html(ol);
+  });
+});
+
 let messageTextBox = jQuery('[name=message]');
 jQuery('#message-form').on('submit', (e) => {
   e.preventDefault();
   socket.emit('createMessage', {
-    from: 'User',
     text: messageTextBox.val(),
   }, () => {
     messageTextBox.val('');
